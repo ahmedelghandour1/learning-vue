@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        form input,
+        form select {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        form div input {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <form>
+            <input v-model="form.name" placeholder="name" type="text">
+            <input v-model="form.email" placeholder="email" type="text">
+            <div>
+                <input type="checkbox" id="approve" v-model="form.checkbox">
+                <label for="approve">Aprrove</label>
+            </div>
+            <div>
+                <input type="checkbox" :checked="'checked'" value="html" id="list" v-model="form.list">
+                <label for="list">html</label>
+                <input type="checkbox" value="css" id="list1" v-model="form.list">
+                <label for="list1">css</label>
+                <input type="checkbox" value="js" id="list2" v-model="form.list">
+                <label for="list2">js</label>
+            </div>
+            <div>
+                <input type="radio" id="one" value="One" v-model="form.radio">
+                <label for="one">One</label>
+                <br>
+                <input type="radio" id="two" value="Two" v-model="form.radio">
+                <label for="two">Two</label>
+            </div>
+        </form>
+        {{form}}
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                form: {
+                    name: '',
+                    email: '',
+                    checkbox: false,
+                    list: [],
+                    radio: ''
+                }
+            },
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>

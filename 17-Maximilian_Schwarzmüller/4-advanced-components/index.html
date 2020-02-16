@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/x-template" id="home">
+        <div>
+            <h2>Home</h2>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic, quia.</p>
+        </div>
+    </script>
+    <script type="text/x-template" id="users">
+        <div>
+            <h2>Users</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident iste officiis praesentium!.</p>
+        </div>
+    </script>
+    <script type="text/x-template" id="messages">
+        <div>
+            <h2>Messages</h2>
+            <p>Lorem ipsum Lorem ipsum dolor sit amet. amet consectetur, adipisicing elit. Hic, quia.</p>
+        </div>
+    </script>
+
+    <div class="container">
+        <div id="app">
+            <div class="btn-group mt-5" role="group" aria-label="Basic example">
+                <button type="button" @click="selectedComp = 'AppHome'" class="btn btn-secondary">Home</button>
+                <button type="button" @click="selectedComp = 'Users'" class="btn btn-secondary">Users</button>
+                <button type="button" @click="selectedComp = 'Messages'" class="btn btn-secondary">Messages</button>
+            </div>
+            <div class="content">
+                <component :is="selectedComp"></component>
+                <keep-alive>
+                    <component :is="selectedComp"></component>
+                </keep-alive>
+            </div>
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const AppHome = {
+            template: '#home',
+            destroyed() { console.log('destroyed') },
+            activated() { console.log('activated') },
+            deactivated() { console.log('deactivated') }
+        };
+        const Users = { template: '#users' }
+        const Messages = { template: '#messages' }
+        const app = new Vue({
+            el: '#app',
+            data: {
+                selectedComp: 'AppHome'
+            },
+            components: {
+                AppHome,
+                Users,
+                Messages
+            },
+            methods: {
+
+            }
+
+        })
+
+
+    </script>
+</body>
+
+</html>

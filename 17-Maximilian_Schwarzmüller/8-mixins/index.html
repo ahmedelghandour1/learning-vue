@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+       {{msg}} - {{isOpen}} - {{ohterMsg}} - <comp></comp>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        Vue.mixin({
+            created() {
+                console.log('global mixin');
+            }
+        })
+        const mixin = {
+            data() {
+                return {
+                    msg: 'hi',
+                    isOpen: false,
+                }
+            },
+            created() {
+                this.isOpen = !this.isOpen;
+                console.log('from mixin')
+                console.log(this.isOpen, this.msg);
+            }
+        }
+        const comp = {
+            template: '<span>hi</span>'
+        }
+        const app = new Vue({
+            mixins: [mixin],
+            el: '#app',
+            data: {
+                msg: 'hi from component',
+                ohterMsg: 'other msg'
+            },
+            methods: {},
+            created() {
+                console.log('from component')
+            },
+            components: {
+                comp
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="onClick">click</button>
+        <ul>
+            <li v-for="item in list">{{item}}</li>
+            <li v-for="(item, index) in list">{{index}} - {{item}}</li>
+            <hr>
+            <li :key="key" v-for="(val, key, index) in obj">
+                <template v-if="typeOf(val) !== 'object'">
+                    {{index}} => {{key}}: {{val}}
+                </template>
+                <template v-else>
+            <li>
+                {{index}} => {{key}}
+                <ul>
+                    <template v-if="Array.isArray(val)">
+                        <li v-for="item in val">{{item}}</li>
+                    </template>
+                    <template v-else>
+                        <li v-for="(item, k) in val">{{k}}: {{item}}</li>
+                    </template>
+                </ul>
+            </li>
+            </template>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="evn in evenNums">{{evn}}</li>
+        </ul>
+        <hr>
+        <ul v-for="st in sets">
+            <li v-for="evn in evenNumbers(st)">{{evn}}</li>
+        </ul>
+        <ul>
+            <li v-for="n in 10**3">{{n}}</li>
+        </ul>
+        <ul>
+            <li
+            v-for="(todo, index) in todoList"
+            :title="todo.title"
+            :key="todo.id" 
+            @remove="todoList.splice(index, 1)"
+            is="todo-list"></li
+            >
+        </ul>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        Vue.component('todo-list', {
+            template: `
+            <li>{{ title }}<button v-on:click="$emit('remove')">Remove</button></li>
+            `,
+            props: ['title']
+        })
+        const app = new Vue({
+            el: '#app',
+            data: {
+                todoList: [
+                    {
+                        id: 1,
+                        title: 'Do the dishes',
+                    },
+                    {
+                        id: 2,
+                        title: 'Take out the trash',
+                    },
+                ],
+                list: ['first', 'second', 'third', 'fourth'],
+                numbers: [1, 2, 3, 4, 5],
+                sets: [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]],
+                obj: {
+                    title: 'How to do lists in Vue',
+                    author: 'Jane Doe',
+                    publishedAt: '2016-04-10',
+                    lists: {
+                        first: 'first',
+                        second: 'second',
+                        third: 'third',
+                    },
+                    ArrList: ['first', 'second', 'third', 'fourth']
+                }
+            },
+            methods: {
+                onClick: changeItemOfIndex,
+                typeOf(variable) {
+                    this.$set(this.obj, 'insideMethod', 'insideMethod')
+                    return typeof variable;
+                },
+                evenNumbers(numbers) {
+                    return numbers.filter((elm) => elm % 2 === 0)
+                }
+            },
+            computed: {
+                evenNums() {
+                    return this.numbers.filter((elm) => elm % 2 === 0)
+                }
+            }
+        })
+
+        /* ======= ARRAY Caveats ====== */
+
+        function changeItemOfIndex() {
+            Vue.set(app.list, 1, 'fuck')
+
+            /* equal to */
+            setTimeout(() => app.$set(app.list, 1, 'duck'), 1000)
+            /* equal to */
+            setTimeout(() => app.list.splice(1, 1, 'puck'), 2000);
+        }
+
+        /* ======= OBJECT Caveats ====== */
+        app.x = 'fuck'; // this is not reactive.
+        app.obj['new1'] = 'new1'
+        Object.assign(app.obj, {
+            'objAssign': 'objAssign'
+        })
+        app.obj = Object.assign({}, app.obj, {
+            'objAssign222': 'objAssign222'
+        })
+        Vue.set(app.obj, 'new2', 'new2')
+        app.$set(app.obj, 'new3', 'new3')
+
+    </script>
+</body>
+
+</html>

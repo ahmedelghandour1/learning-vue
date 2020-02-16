@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input style="width:300px" type="text" placeholder="Ask a question that contains '?' symbol" v-model="question"> <span>{{notes}}</span>
+        <div v-if="answer&&img" class="card">
+            <h1>Answer is: {{answer}}</h1>
+            <img :src="img" alt="">
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script>
+        const link = 'https://yesno.wtf/api';
+
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                answer: undefined,
+                img: undefined,
+                question: '',
+                notes: 'I cannot give you an answer until you ask a question!'
+
+            },
+            watch: {
+                question(newVal, oldVal) {
+                    console.log(newVal, oldVal);
+                    this.notes = 'Waiting for you to stop typing...';
+                    this.answer = undefined;
+                    this.img = undefined;
+                    // debouncedGetAnswer()
+                    _.debounce(this.getAnswer, 1500)()
+                }
+            },
+            methods: {
+                getAnswer() {
+                    console.log('template change');
+                    
+                    if (this.question.indexOf('?') === -1) {
+                        this.notes = 'Questions usually contain a question mark. ;-)'
+                        return
+                    }
+                    this.notes = 'Thinking...';
+                    getRespPromise(link).then((resp) => {
+                       this.notes = undefined;
+                        console.log(resp.data);
+                        this.img = resp.data.image;
+                        this.answer = resp.data.answer;
+                    })
+                }
+            },
+            created() { }
+        })
+
+        function getRespPromise(link, question) {
+            return axios.get(link);
+        }
+        const debouncedGetAnswer = _.debounce(app.getAnswer, 500)
+    </script>
+</body>
+
+</html>

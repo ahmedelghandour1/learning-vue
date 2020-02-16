@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .brd{
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <first-comp>
+            <second-comp></second-comp>
+        </first-comp>
+        <second-comp></second-comp>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+          const secondComponnent = {
+            template: `<div class="brd">
+                My name is {{name}}. My age is {{age}} old
+            </div>`,
+            data() {
+                return {
+                    name: 'Mohamed',
+                    age: 20
+                }
+            }
+        }
+        const firstComponnent = {
+            components: {
+                'second-comp': secondComponnent
+            },
+            template: `<div class="brd">
+                My name is {{name}}. My age is {{age}} old
+                <slot></slot>
+            </div>`,
+            data() {
+                return {
+                    name: 'Ahmed',
+                    age: 24
+                }
+            }
+        }
+        const app = new Vue({
+            el: '#app',
+            components: {
+                'second-comp': secondComponnent,
+                'first-comp': firstComponnent,
+            },
+            data: {},
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>

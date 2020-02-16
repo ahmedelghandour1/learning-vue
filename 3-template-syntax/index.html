@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--======= TEXT ========-->
+        <div>Message: {{message}}</div>
+        <div v-once>Message: {{message}} (just once)</div>
+        <button v-on:click="message = 'New Message'">change message</button>
+        <!--======= RAW HTML ========-->
+        <div>Bind html: <span v-html="html"></span></div>
+        <!--======= ATTRIBUTES ========-->
+        <div v-bind:id="id" v-bind:title="id">{{id}}</div>
+        <button v-bind:disabled="true">Button</button>
+        <!--======= JAVASCRIPT IMPRESSTIONS ========-->
+        <div>{{message.split('').reverse().join('')}}</div>
+        <span>{{!message ? true : false}}</span>
+        <div>{{JSON}}</div>
+        <div>{{Object}}</div>
+        <div>{{isNaN(435)}}</div>
+        <div>{{isFinite(564564535)}}</div>
+        <div>{{new Date()}}</div>
+        <div>{{encodeURIComponent('Property or method "${key}" is not defined on the instance but')}}</div>
+        <!--======= DIRECTIVES ========-->
+        <div v-if="show">see this message if "show" property is true</div>
+        <a v-bind:href="href">Google</a>
+        <br>
+        <!-- Dynamic directives -->
+        <select v-on:change="event = $event.target.value">
+            <option value="change">change</option>
+            <option value="input">input</option>
+            <option value="focus">focus</option>
+            <option value="blur">blur</option>
+        </select>
+        <input v-on:[event]="test">
+        <!--======= MODIFIERS ========-->
+        <a v-on:click.prevent v-bind:href="href">Google</a>
+        <!--======= SHORTHAND ========-->
+        <div :title="message">{{message}}</div>
+        <button @click="test">click</button>
+        <input v-if="event" :placeholder="'on '+ event" @[event]="test">
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello World',
+                html: 'Hello <b style="color: red">world</b>',
+                id: '34gkcfdfr45gvbvcd3@fgc',
+                show: true,
+                href: 'https://www.google.com/',
+                event: null
+            },
+            methods: {
+                test(e) {
+                    console.log(e);
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

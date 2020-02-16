@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container mt-5">
+            <div class="row">
+                <div v-for="post in posts" class="col-12">
+                    <socail-post
+                    :title="post.title"
+                    :body="post.body"
+                    :key="post.id"
+                    :is-public="post.isPublic"
+                    :likes="post.likes"
+                    :author="post.author">
+                    </socail-post>
+                    
+                    <socail-post
+                    :key="post.id+1"
+                    v-bind="post">
+                    </socail-post>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const posts = [
+            {
+                title: 'Post',
+                body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, iusto.',
+                isPublic: false,
+                id:353,
+                likes: 3243, 
+                author: {
+                    name: 'Ahmed Elghandour',
+                    age: 25,
+                }
+            },
+            {
+                title: 'Post',
+                body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, iusto.',
+                isPublic: true,
+                id:763,
+                likes: 3243, 
+                author: {
+                    name: 'Ahmed Elghandour',
+                    age: 25,
+                }
+            }
+        ]
+        const socailPost = {
+            template: `
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{title}}</h5>
+                    <p class="card-text">{{body}}</p>
+                    {{author}} -{{isPublic}}-{{likes}}
+                </div>
+            </div>
+            `,
+            props: {
+                title: String,
+                body: String,
+                likes: Number,
+                isPublic: Boolean,
+                author: Object,
+                callback: Function
+            }
+        }
+        const app = new Vue({
+            el: '#app',
+            components: {
+                socailPost
+            },
+            data: {
+                posts
+            },
+            methods: {}
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>

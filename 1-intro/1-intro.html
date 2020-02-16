@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: all .5s;
+        }
+
+        .fade-enter,
+        .fade-leave-to
+
+        /* .fade-leave-active below version 2.1.8 */
+            {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{message}}</div>
+        <button v-on:click="seen=!seen">Toggle</button>
+        <transition name="fade">
+            <div v-if="seen">you can see me</div>
+        </transition>
+        <a v-bind:href="link.lnk" target="_blank" v-bind:title="link.title">{{link.title}}</a>
+        <div class="time">{{time}}</div>
+        <input type="text" placeholder="name, age" v-on:keyUp.enter="addPerson($event, 'ahmed')">
+        <ul>
+            <div style="background-color: red; padding: 5px;" v-if="isAddingList">
+                Adding list
+            </div>
+            <li v-for="person of list">
+                <b>Name:</b>{{person.name}}
+                <b>Age:</b>{{person.age}}
+                <hr>
+            </li>
+        </ul>
+        <div>
+            selected person <input v-model="msgTwoWayDataBinding" type="text">
+            <b>{{msgTwoWayDataBinding}}</b>
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                seen: true,
+                link: {
+                    lnk: 'https://vuejs.org/',
+                    title: 'VueJs Documentation'
+                },
+                time: new Date().toLocaleTimeString(),
+                list: [
+                    { name: 'Ahmed', age: 27 },
+                    { name: 'Ahmedx', age: 27 },
+                    { name: 'Ahmedc', age: 27 },
+                    { name: 'Ahmedv', age: 27 },
+                ],
+                isAddingList: false,
+                msgTwoWayDataBinding: 'Mido'
+            },
+            methods: {
+                addPerson(...args) {
+                    this.isAddingList = true
+                    setTimeout(() => {
+                        this.isAddingList = false;
+                        const inputValue = args[0].target.value.split(',');
+                        const person = {name: inputValue[0], age: inputValue[1]}
+                        this.list.push(person)
+                    }, 3000);
+                    
+                }
+            }
+        })
+        setInterval(() => app.time = new Date().toLocaleTimeString(), 1000)
+    </script>
+</body>
+
+</html>

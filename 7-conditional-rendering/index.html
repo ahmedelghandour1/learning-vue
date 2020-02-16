@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="awesome=!awesome">Awesome</button>
+        <button @click="good=!good">good</button>
+        <h1 v-if="awesome">Vue is awesome!</h1>
+        <h1 v-else>Oh no 😢</h1>
+        <template v-if="good">
+            <div>div1</div>
+            <div>div2</div>
+            <div>div3</div>
+            <div>div4</div>
+        </template>
+        <template v-else>
+            <div>div5</div>
+            <div>div6</div>
+            <div>div7</div>
+            <div>div8</div>
+        </template>
+        <input type="text" v-model="input">
+        <div v-if="inputNormalized === 'a'">A</div>
+        <div v-else-if="inputNormalized === 'b'">B</div>
+        <div v-else>Else</div>
+
+        <!-- controling reusable elements -->
+        <button @click="reusable = !reusable">reusable</button>
+        <template v-if="reusable">
+            <span class="x">Not Fuck</span>
+            <input placeholder="reusable first" type="text">
+            <input placeholder="not reusable first" key="not-fuck" type="text">   
+        </template>
+        <template v-else>
+            <span class="y">Fuck</span>
+            <input placeholder="reusable second" type="text">
+            <input placeholder="not reusable second" key="fuck" type="text">
+        </template>
+        <div v-show="show" @click="show=!show">click me</div>
+        <template v-for="no in loop">
+        <template v-if="no !== 1"><span>{{no}}</span></template>
+        </template>
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                awesome: false,
+                good: true,
+                input: '',
+                reusable: false,
+                show: true,
+                loop: [1,2,3,4,5,6]
+            },
+            methods: {},
+            computed: {
+                inputNormalized() {
+                    console.log('computed');
+                    return this.input.toLowerCase();
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

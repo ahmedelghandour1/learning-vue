@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model="message" type="text">
+        <input v-model="otherMsg" type="text">
+        <div>{{message}}</div>
+        <!-- reversedMessage() function will be invoked only when the message propery changes -->
+        <div>{{reversedMessage}}</div>
+        <!-- now() function will be invoked every time the template render -->
+        <div>{{now()}}</div>
+        <button :click="test = true">click</button>
+        <input type="text" :placeholder="name" @keyup.enter=" name = $event.target.value" name="" id="">
+        <input type="text" placeholder="msg" @keyup.enter=" reversedMessage = $event.target.value" name="" id="">
+        <div>{{name}}</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello',
+                test: false,
+                otherMsg: 'test',
+                firstName: 'ahmed',
+                lastName: 'elghandour',
+            },
+            methods: {
+                now() {
+                    console.log('updated from methods');
+
+                    return new Date().toLocaleTimeString()
+                }
+            },
+            computed: {
+                reversedMessage:  {
+                    get() {
+                        console.log('updated from computed');
+                        return this.message.split('').reverse().join('');
+                    },
+                    set(newVal) {
+                        this.message = 'fuck you'
+                    }
+                },
+                name: {
+                    get() {
+                        return `${this.firstName} ${this.lastName}`;
+                    }
+                    , set(newVal) {
+                        var nameArr = newVal.trim().split(' ');
+                        console.log(nameArr);
+                        this.firstName = nameArr[0];
+                        if (nameArr.length > 1) this.lastName = nameArr[nameArr.length - 1];
+                        else this.lastName = '';
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/x-template">
+        <div>
+            
+        </div>
+    </script>
+    <div id="app">
+        <input v-model="title" type="text">
+        <!-- order of filters will change the result-->
+        <h1>{{title | capitalize('asdsa', 'sadsa')| reverse }}</h1>
+        <p>
+            <b>notes:</b> 
+            <br>
+            - order of filters will change the result
+            <br>
+            - filters will be invoked every time the dom changes.
+        </p>
+        <input type="text" v-model.number="minNum">
+        {{minNum}}
+        <ul>
+            <li v-for="elm in filtered">{{elm}}</li>
+        </ul>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // const filter = Vue.filter('filter', (value) => {
+        //     console.log(filter);
+        //     return value;
+        // })
+        const reverse = Vue.filter('reverse', (value) => {
+            if (!value || typeof value !== 'string') return value;
+            return value.split('').reverse().join('');
+        });
+        const capitalize = Vue.filter('capitalize', (value, ...rest) => {
+            console.log(rest);
+            if (!value || typeof value !== 'string') return value;
+            let words = value.trim().split(' ');
+            words = words.map((word) => {
+                return `${word[0].toUpperCase()}${word.slice(1)}`
+            })
+            return words.join(' ')
+        });
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'Hello there!',
+                list: [1, 2, 4, 5, 6, 7, 8, 9, 556, 5465454, 345],
+                minNum: 0
+            },
+            methods: {},
+            computed: {
+                filtered() {
+                    return this.list.filter((elm) => {
+                        return elm > +this.minNum;
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

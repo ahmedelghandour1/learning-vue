@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-comp @click.native="onClick" @onfuck="onFuck"></my-comp>
+        <div><my-input v-model="lovingVue"></my-input>Vue</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const myComp = {
+            template: `<button @click="customEvent('onfuck')">Click</button>`,
+            methods: {
+                customEvent(event) {
+                    this.$emit(event)
+                }
+            }
+        }
+        const myInput = {
+            template: `
+            <input
+            type="checkbox"
+            v-bind:checked="checked"
+            v-on:change="$emit('change', $event.target.checked)">
+            `,
+            props: {
+                checked: Boolean
+            },
+            model: {
+                prop: 'checked',
+                event: 'change'
+            },
+        }
+        const app = new Vue({
+            el: '#app',
+            components: {
+                myComp,
+                myInput
+            },
+            data: {
+                lovingVue: true
+            },
+            methods: {
+                onFuck() {
+                    alert('Fuck')
+                },
+                onClick() {
+                    alert('click')
+                }
+            },
+            watch: {
+                lovingVue(newVal, oldVal) {
+                    console.log(`new: ${newVal}`, `old: ${oldVal}`)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

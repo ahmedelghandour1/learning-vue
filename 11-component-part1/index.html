@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .alert-box{
+            border: 1px solid red;
+            background: rgba(255, 0, 0, 0.397);
+            padding: 7px;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <counter-button :id="1"></counter-button>
+        <counter-button :id="2"></counter-button>
+        <counter-button :id="3"></counter-button>
+        <counter-button :id="4"></counter-button>
+
+        <blog-post
+             v-for="(post, index) in posts"
+            :key="post.id"
+            :index="index"
+            @delete="onDelete($event, index)" 
+            :post="post">
+        </blog-post>
+        <alert-box>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto, corporis.
+        </alert-box>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        Vue.component('counter-button', {
+            props: ['id'],
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            computed: {
+                onCount() {
+                    console.log('computed');
+                    return this.count + ' times.'
+                }
+            },
+            template: `<button @click="count++">You clicked me {{ onCount }} with id: {{id}}</button>`
+        })
+        Vue.component('blog-post', {
+            props: ['post', 'index'],
+            template: `
+            <div>
+                <h2>{{post.title}}</h2>
+                <p>{{post.body}}</p>
+                <button @click="$emit('delete', post.id)">delete</button>
+            </div>
+        `
+        })
+        Vue.component('alert-box', {
+            props: ['post', 'index'],
+            template: `
+            <div class="alert-box">
+                <strong>Error!</strong>
+                <slot></slot>
+            </div>
+        `
+        })
+        const app = new Vue({
+            el: '#app',
+            data: {
+                posts: [
+                    {
+                        title: 'Fuck you all',
+                        body: 'Lorem ipsum dolor sit amet.',
+                        id: 143535
+                    },
+                    {
+                        title: 'Fuck you not all',
+                        body: 'Lorem ipsum dolor sit amet.',
+                        id: 24356
+                    },
+                    {
+                        title: 'don\'t Fuck any body',
+                        body: 'Lorem ipsum dolor sit amet.',
+                        id: 3897087
+                    }
+                ]
+            },
+            methods: {
+                onDelete(e, index) {
+                    console.log(e);
+                    this.posts.splice(index, 1)
+                }
+            },
+
+        })
+        setTimeout(() => app.posts[0].title = 'noooooooooooooooo', 2000);
+        setTimeout(() => app.posts.splice(1, 1) ,3000);
+    </script>
+</body>
+
+</html>

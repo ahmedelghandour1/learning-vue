@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .active {
+            background: green;
+            color: white;
+        }
+
+        .error {
+            background-color: rgba(175, 50, 50, 0.575);
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button v-bind:class="{active: isActive}" v-on:click="isActive = !isActive">click</button>
+        <button @click="classObj.error = !classObj.error; classObj.active = false">error</button>
+        <button @click="classObj.error = false; classObj.active = !classObj.active">active</button>
+        <div :class="classObj">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod, a?
+        </div>
+        <br>
+        <div :class="computedClass">
+            computed
+        </div>
+        <div :class="[computedClass, classObj]">
+            Array Syntax
+        </div>
+        <div :class="[computedClass, {fuck: true}]">
+            Array Syntax
+        </div>
+        <div 
+        v-bind:style="{color: 'blue', 
+        fontSize: fontSize+'px', 
+        transition: 'all 3s ease', 
+        backgroundImage: 'linear-gradient(to bottom, #D7D 0%, #068 100%)',
+        display: ['-webkit-box', '-ms-flexbox', 'flex']}">
+            style binding
+        </div>
+        <my-component class="baz boo foo"></my-component>
+        <my-component :class="{active: isActive}"></my-component>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        Vue.component('my-component', {
+            template: `
+            <div class="foo bar">
+                <p>Hi From component</p>
+                <p>Hi From component</p>
+            </div>
+            `
+        })
+        const app = new Vue({
+            el: '#app',
+            data: {
+                fontSize: 50,
+                isActive: true,
+                active: false,
+                error: true,
+                classObj: {
+                    active: false,
+                    error: true,
+                }
+            },
+            methods: {},
+            computed: {
+                computedClass() {
+                    return {
+                        active:this.active && !this.error,
+                        error: this.error && !this.active
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
