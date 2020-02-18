@@ -12,10 +12,19 @@
 export default {
     created() {
         console.log(this.$route)
+    },
+    beforeRouteEnter(to, from, next) {
+        console.log('from inside Home component (beforeRouteEnter)', {to, from})
+        next();
+    },
+    beforeRouteLeave(to, from, next) {
+        if(confirm('Are you sure?')) {
+            next();
+        } else next(false);
     }
 }
 </script>
 
 <style>
 
-</style>
+</style> 

@@ -4,7 +4,8 @@
     <div>Locale: {{$route.query.locale}}</div>
     <div>Analytics: {{$route.query.q}}</div>
     <hr>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam obcaecati similique amet reiciendis aut inventore quos optio minima, nulla quo.</p>
+    <p style="height: 700px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam obcaecati similique amet reiciendis aut inventore quos optio minima, nulla quo.</p>
+    <div id="data">data fragment</div>
   </div>
 </template>
 
@@ -17,7 +18,7 @@ export default {
   },
   methods: {},
   watch: {
-      $route(newVal, oldVal) {
+      $route(newVal, oldVal) { 
         console.log(oldVal);
           this.userID = newVal.params.id;
       }

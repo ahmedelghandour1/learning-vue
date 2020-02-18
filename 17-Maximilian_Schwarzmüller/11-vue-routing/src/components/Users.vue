@@ -9,7 +9,7 @@
   <router-link 
   v-for="user in users"
    :key="user.id" 
-   :to="{name: 'singleUser', params: {id: user.id}, query:{locale: 'en', q: 100}}" 
+   :to="{name: 'singleUser', params: {id: user.id}, query:{locale: 'en', q: 100}, hash: '#data'}" 
    active-class="active"
    class="list-group-item list-group-item-action">
       <div class="d-flex align-items-center justify-content-between">
