@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <title>Document</title>
+    <style>
+      .fade-enter-active,
+      .fade-leave-active {
+        transition: all 0.3s;
+      }
+      
+      .fade-enter,
+              .fade-leave-to
+      
+              /* .fade-leave-active below version 2.1.8 */
+       {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      </style>
+      
+
+</head>
+
+<body>
+    <script id="main-header-template" type="text/x-template">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <router-link class="navbar-brand" to="/"> 
+                vue & nodejs
+            </router-link>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <router-link class="nav-item" tag="li" to="/counter" activeClass="active"> 
+                    <a class="nav-link">Counter</a>
+                </router-link>
+              </ul>
+            </div>
+          </nav>
+    </script>
+
+    <script id="counter-template" type="text/x-template">
+      <div>
+        <counter-result class="text-center"></counter-result>
+        <hr>
+        <div class="counter text-center">
+            <button @click="INCREMENT" class="btn btn-primary">Increment</button>
+            <button @click="INCREMENTBY(5)" class="btn btn-primary">Increment by 5</button>
+            <button @click="DECREMENT" class="btn btn-secondary">Decrement</button>
+            <button @click="DECREMENTBY(5)" class="btn btn-secondary">Decrement by 5</button>
+        </div>
+      </div>
+    </script>
+
+    <script id="counter-result-template" type="text/x-template">
+        <div class="counter-result">
+        <h1>{{getCounter}}</h1>
+        </div>
+    </script>
+
+
+    <div id="app">
+        <div class="container mt-5">
+            <main-header></main-header>
+            <transition name="fade" mode="out-in">
+              <router-view class="mt-5"></router-view>
+            </transition>
+        </div>
+    </div>
+    <script src="./scripts/pack/jquery-3.3.1.slim.min.js"></script>
+    <script src="./scripts/pack/bootstrap.bundle.min.js"></script>
+    <script src="./scripts/pack/vue.js"></script>
+    <script src="./scripts/pack/vuex.js"></script>
+    <script src="./scripts/pack/vue-router.js"></script>
+    <script src="./scripts/components.js"></script>
+    <script src="./scripts/router.js"></script>
+    <script src="./scripts/store.js"></script>
+    <script src="./scripts/app.js"></script>
+</body>
+
+</html>

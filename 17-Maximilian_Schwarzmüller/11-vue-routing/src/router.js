@@ -11,7 +11,7 @@ const Home = () => import(/* webpackChunkName: "home-module" */ './components/Ho
 
 Vue.use(VueRouter);
 
-export const routes = [
+const routes = [
     {
         path: '',
         name: 'home',
@@ -38,7 +38,7 @@ export const routes = [
     { path: '/redirect-me', redirect: { name: 'home' } },
     { path: '*', redirect: '/' }
 ];
-export const routerOptions = {
+const routerOptions = {
     mode: 'history' /* history, abstract, hash */,
     scrollBehavior(to, from, savedPosition) {
         console.log({ to, from, savedPosition });

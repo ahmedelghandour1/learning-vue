@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Vuex</h1>
+    <Result/>
+    <hr>
+    <Counter/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Result from './components/Result';
+import Counter from './components/Counter';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Result,
+    Counter
   }
 }
 </script>

@@ -46,13 +46,12 @@
             <li v-for="n in 10**3">{{n}}</li>
         </ul>
         <ul>
-            <li
-            v-for="(todo, index) in todoList"
-            :title="todo.title"
+            <li 
+            v-for="(todo, index) in todoList" 
+            :title="todo.title" 
             :key="todo.id" 
             @remove="todoList.splice(index, 1)"
-            is="todo-list"></li
-            >
+                is="todo-list"></li>
         </ul>
     </div>
 
