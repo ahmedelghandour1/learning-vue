@@ -13,6 +13,7 @@
         <my-comp @click.native="onClick" @onfuck="onFuck"></my-comp>
         <div><my-input v-model="lovingVue"></my-input>Vue</div>
         <div><my-input :checked="lovingVue" @change="lovingVue = $event" ></my-input>Vue</div>
+        <div>{{lovingVue}}</div>
     </div>
     <script src="vue.js"></script>
     <script>

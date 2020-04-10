@@ -71,7 +71,10 @@
             props: {
                 title: String,
                 body: String,
-                likes: Number,
+                likes:{
+                    type:  Number,
+                    required: true
+                },
                 isPublic: Boolean,
                 author: Object,
                 callback: Function

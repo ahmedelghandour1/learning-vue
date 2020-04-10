@@ -14,7 +14,7 @@
     <script type="text/x-template" id="navigation-url">
         <a :href="url">
             <!-- txt binding id tgo get access to the child data -->
-            <slot :txt="txt">{{txt}}</slot>
+            <slot v-bind:dum="dummy">{{txt}}</slot>
         </a>
     </script>
 
@@ -47,6 +47,11 @@
                 <navigation-url url="/app">
                     Fuck link
                 </navigation-url>
+                <navigation-url url="/fuck">
+                    <template v-slot:default="slotProps">
+                        {{slotProps.dum}}
+                    </template>
+                </navigation-url>
                 <navigation-url url="/fuck"></navigation-url>
             </template>
             <!-- can put without (v-slot:default) -->
@@ -70,7 +75,12 @@
             },
             data() {
                 return {
-                    txt: 'unnamed fuck'
+                    txt: 'unnamed fuck',
+                    dummy: {
+                        a: 1,
+                        b: 2,
+                        c: 3
+                    }
                 }
             }
         }
