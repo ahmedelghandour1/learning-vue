@@ -2,7 +2,7 @@
   <div id="app">
     <app-header></app-header>
     <app-main>
-      <div class="row">
+      <div class="row x">
         <div v-if="notification" class="col-12">
           <div class="alert alert-info" role="alert">{{notification}}</div>
         </div>
@@ -34,7 +34,7 @@ import appFooter from "./components/layout/Footer";
 import appMain from "./components/layout/Main";
 import Servers from "./components/Servers";
 import SelectedServer from "./components/ServerDetails";
-import getServers from "./servers.js";
+import ServersService from "./servers.js";
 import {ServerBus} from './main.js';
 export default {
   name: "App",
@@ -49,7 +49,7 @@ export default {
     getServers() {
       const vm = this;
       this.isLoading = true;
-      getServers().then(data => {
+      ServersService.getServers().then(data => {
         this.isLoading = false;
         vm.serversArr = data;
       });
@@ -58,10 +58,13 @@ export default {
       this.notification = `${data.name} is selected`
     },
     bindFunc() {
-      alert('bind function');
+      console.log('bind function');
+      console.log(this.serversArr)
+      return this
     }
   },
   mounted() {
+    console.log(ServersService)
     this.getServers();
   },
     created() {
@@ -82,3 +85,6 @@ export default {
 };
 </script>
 
+<style scoped>
+
+</style>

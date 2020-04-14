@@ -15,4 +15,10 @@ export default {
     min-height: 300px;
     margin-top: 30px
 }
+/* .x{
+  border: 1px solid;
+} */
+/* *{
+  border: 1px solid;
+} */
 </style>
