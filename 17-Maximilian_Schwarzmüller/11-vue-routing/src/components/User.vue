@@ -18,9 +18,9 @@ export default {
   },
   methods: {},
   watch: {
-      $route(newVal, oldVal) { 
-        console.log(oldVal);
-          this.userID = newVal.params.id;
+      $route(to, from) { 
+        console.log(from);
+          this.userID = to.params.id;
       }
   },
   created() {

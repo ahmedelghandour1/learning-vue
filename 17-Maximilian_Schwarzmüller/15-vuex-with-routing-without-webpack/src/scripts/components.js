@@ -1,3 +1,5 @@
+import Vuex from  'vuex/dist/vuex'
+
 const Home = {
     template: `
     <div>

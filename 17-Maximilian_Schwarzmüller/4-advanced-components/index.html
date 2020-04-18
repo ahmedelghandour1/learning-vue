@@ -14,6 +14,7 @@
     <script type="text/x-template" id="home">
         <div>
             <h2>Home</h2>
+            <button @click="counter++">{{counter}}</button>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic, quia.</p>
         </div>
     </script>
@@ -49,6 +50,11 @@
     <script>
         const AppHome = {
             template: '#home',
+            data (){
+                return {
+                counter: 0
+                }
+            },
             destroyed() { console.log('destroyed') },
             activated() { console.log('activated') },
             deactivated() { console.log('deactivated') }
@@ -58,7 +64,7 @@
         const app = new Vue({
             el: '#app',
             data: {
-                selectedComp: 'AppHome'
+                selectedComp: 'AppHome',
             },
             components: {
                 AppHome,

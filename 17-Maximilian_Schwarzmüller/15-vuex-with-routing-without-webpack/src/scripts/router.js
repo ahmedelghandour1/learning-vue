@@ -1,4 +1,9 @@
-console.log(Counter);
+import VueRouter from'vue-router/dist/vue-router';
+
+import {
+    Home,
+    Counter
+} from './components'
 
 const routes = [
     {path: '/', component: Home, name: 'home'},
@@ -9,6 +14,7 @@ const routerOptions = {
     mode: 'hash',
 
 }
+
 
 const router = new VueRouter({
     routes,

@@ -9,8 +9,9 @@
 </head>
 
 <body>
+    <p>mixin is intiated before the component but compnent overright duplicated properties. notes that (created life cycle hook will overright both of them even in mixin or in component)</p>
     <div id="app">
-       {{msg}} - {{isOpen}} - {{ohterMsg}} - <comp></comp>
+       {{msg}} - {{isOpen}} - {{otherMsg}} - <comp></comp>
     </div>
     <script src="vue.js"></script>
     <script>
@@ -24,12 +25,14 @@
                 return {
                     msg: 'hi',
                     isOpen: false,
+                    other: true
                 }
             },
             created() {
-                this.isOpen = !this.isOpen;
+                // this.isOpen = !this.isOpen;
+                this.isOpen = true;
                 console.log('from mixin')
-                console.log(this.isOpen, this.msg);
+                console.log(this.isOpen, this.msg, this.other);
             }
         }
         const comp = {
@@ -40,11 +43,14 @@
             el: '#app',
             data: {
                 msg: 'hi from component',
-                ohterMsg: 'other msg'
+                otherMsg: 'other msg',
+                isOpen: false,
+                other: false
             },
             methods: {},
             created() {
                 console.log('from component')
+                console.log(this.isOpen, this.msg, this.other);
             },
             components: {
                 comp

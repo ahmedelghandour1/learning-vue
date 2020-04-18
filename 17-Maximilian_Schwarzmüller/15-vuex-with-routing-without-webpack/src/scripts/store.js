@@ -1,3 +1,5 @@
+import Vuex from 'vuex/dist/vuex';
+
 const counterModule = {
     state: {
         counter: 0
@@ -53,6 +55,8 @@ const numbersModules = {
         }
     }
 }
+
+
 const store = new Vuex.Store({
     modules: {
         counterModule,

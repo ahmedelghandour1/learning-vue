@@ -10,13 +10,13 @@
 <script>
 import {vButton} from './components'; 
 import {appService} from './services';
-import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+// import { switchMap } from 'rxjs/operators';
+// import { of } from 'rxjs';
 export default {
   name: 'App',
   subscriptions() {
     return {
-      msg: appService.onClick$.pipe(switchMap(() => of('hey pape')))
+      msg: appService.onClick$//.pipe(switchMap(() => of('hey pape')))
     }
   },
   components: {
@@ -25,6 +25,9 @@ export default {
   created() {
     appService.dumy = 'hiiiiiiiiiiiiiii';
     console.log(appService.dumy);
+    appService.onClick$.subscribe((v) => {
+      console.log(v)
+    })
   }
 
 }

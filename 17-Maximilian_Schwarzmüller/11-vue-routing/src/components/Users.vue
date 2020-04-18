@@ -55,8 +55,8 @@ export default {
     }
   },
   watch: {
-      $route(newVal, oldVal) {
-        console.log(oldVal);
+      $route(to, from) {
+        console.log(from);
       }
   },
   created() {

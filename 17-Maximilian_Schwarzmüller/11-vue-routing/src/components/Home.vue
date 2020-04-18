@@ -15,7 +15,10 @@ export default {
     },
     beforeRouteEnter(to, from, next) {
         console.log('from inside Home component (beforeRouteEnter)', {to, from})
-        next();
+        console.log('************************************************Wait 3 second*****************************************************************')
+        setTimeout(() => {
+            next();
+        }, 3000);
     },
     beforeRouteLeave(to, from, next) {
         if(confirm('Are you sure?')) {
