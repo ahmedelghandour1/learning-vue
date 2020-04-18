@@ -1,5 +1,4 @@
-$body-color: red;
-
-body {
-  color: $body-color;
-}
+@import '_app.comp';
+@import '_counter.comp';
+@import '_header.comp';
+@import '_user.comp';

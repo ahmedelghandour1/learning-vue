@@ -9,6 +9,7 @@ const template =  /*html*/
   </li>
 </ul>
 `;
+
 export default {
       name: 'Header',
       template

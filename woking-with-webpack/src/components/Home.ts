@@ -7,7 +7,6 @@ const template = /*html*/
      </div>
 `;
 
-
 import {AppCounter} from './';
 export default {
     name: 'Home', 
