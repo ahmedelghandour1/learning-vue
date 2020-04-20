@@ -1,5 +1,7 @@
 import Vuex from 'vuex';
-import Vue from 'vue/dist/vue';
+// import Vue from 'vue/dist/vue';
+import Vue from 'vue';
+
 
 Vue.use(Vuex);
 

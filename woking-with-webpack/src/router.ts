@@ -1,5 +1,7 @@
 import VueRouter, { RouterOptions, RouteConfig } from 'vue-router';
-import Vue from 'vue/dist/vue'; 
+// import Vue from 'vue/dist/vue'; 
+import Vue from 'vue';
+
 
 import {AppHome} from './components';
 import {AppUser} from './components';
