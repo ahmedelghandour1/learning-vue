@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+    <style>
+      .fade-enter-active,
+      .fade-leave-active {
+        transition: all 0.5s;
+      }
+
+      .fade-enter,
+        .fade-leave-to
+
+        /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    </style>
+  </head>
+
+  <body>
+    <script type="text/x-template" id="accordion-item">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="mb-0">
+            <button  @click="deactivateAll" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse">
+             <slot name="title">{{title}}</slot>
+            </button>
+          </h2>
+        </div>
+
+        <div :class="{show: isActive}" class="collapse">
+          <div class="card-body">
+           <slot></slot>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="accordion">
+      <div class="accordion">
+        <draggable :disabled="false" handle="button[data-toggle=collapse]" animation="300">
+            <slot></slot>
+        </draggable>
+      </div>
+    </script>
+    <div id="app">
+      <div class="container mt-5">
+        <accordion>
+          <accordion-item v-for="item in list" :title="item.name" :key="item.id" :item-id="item.id">
+            <!-- <template slot="title">
+              {{item.name}}
+            </template> -->
+            {{item.body}}
+          </accordion-item>
+        </accordion>
+      </div>
+    </div>
+    <script src="vue.js"></script>
+    <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+    <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+    <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+    <script>
+      let xx;
+      const accordionItem = {
+        template: "#accordion-item",
+        data() {
+          return {
+            isActive: false
+          }
+        },
+        props: {
+          title: {
+            type: String,
+          },
+          itemId: {
+            type: [String, Number],
+            required: true,
+          },
+        },
+        methods: {
+          deactivateAll() {
+            console.log(this.$parent);
+            this.$parent.$parent.deactivateAll();
+            this.isActive = !this.isActive;
+          }
+
+        },
+        mounted() {
+          xx =this;
+        }
+      };
+      let x;
+      const accordion = {
+        template: "#accordion",
+        props: {},
+        methods: {
+          deactivateAll() {
+            this.$slots.default.forEach(element => {
+              console.log(element);
+              element.componentInstance.isActive = false;
+            });
+          }
+        },
+        data() {
+          return {
+
+          };
+        },
+        mounted() {
+          x = this
+          console.log(this.$slots);
+          console.log(this.$children);
+        }
+      };
+      const app = new Vue({
+        el: "#app",
+        components: {
+          accordion,
+          accordionItem
+        },
+        data: {
+          list: [
+              { name: "menu 1", id: 1, body: 'body 1' },
+              { name: "menu 2", id: 2, body: 'body 2' },
+              { name: "menu 3", id: 3, body: 'body 3' },
+              { name: "menu 4", id: 4, body: 'body 4' },
+            ],
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>
