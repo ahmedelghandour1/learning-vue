@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <nav data-scroll-header>
+        <ul id="nav-header">
+          <li v-for="item in items" :key="item.id">
+            <a data-scroll :href="'#section-'+item.id">{{item.name}}</a>
+          </li>
+        </ul>
+      </nav>
+      <main>
+        <div
+          v-for="item in items"
+          :key="item.id"
+          :id="'section-'+item.id"
+          class="section"
+          ref="section"
+        >
+          <h2>Section {{item.id}}</h2>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias
+            officia magni excepturi dolores alias corrupti commodi quo illum,
+            provident perferendis, dolor voluptates natus non eos possimus esse
+            sit inventore accusamus. Lorem ipsum dolor, sit amet consectetur
+            adipisicing elit. Molestias officia magni excepturi dolores alias
+            corrupti commodi quo illum, provident perferendis, dolor voluptates
+            natus non eos possimus esse sit inventore accusamus.
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./smooth-scroll.min.js"></script>
+    <script src="./anime.min.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

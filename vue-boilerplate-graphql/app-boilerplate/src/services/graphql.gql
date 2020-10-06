@@ -1,0 +1,74 @@
+import gql from "graphql-tag";
+
+export const GET_MY_TODOS = gql`
+  query getMyTodos {
+    todos(
+      where: { is_public: { _eq: false } }
+      order_by: { created_at: desc }
+    ) {
+      title
+      id
+      created_at
+      is_completed
+    }
+  }
+`;
+
+export const ADD_TODO = gql`
+  mutation addTodos($todo: String!, $isPublic: Boolean!) {
+    insert_todos(objects: { title: $todo, is_public: $isPublic }) {
+      affected_rows
+      returning {
+        id
+        created_at
+        is_completed
+        title
+      }
+    }
+  }
+`;
+
+export const TOGGLE_TODO = gql`
+  mutation toggleTodo($id: Int!, $isCompleted: Boolean!) {
+    update_todos(
+      where: { id: { _eq: $id } }
+      _set: { is_completed: $isCompleted }
+    ) {
+      affected_rows
+    }
+  }
+`;
+
+export const REMOVE_TODO = gql`
+  mutation deleteTodo($id: Int!) {
+    delete_todos(where: { id: { _eq: $id } }) {
+      affected_rows
+    }
+  }
+`;
+
+export const REMOVE_TODOS = gql`
+  mutation deleteTodos($isCompleted: Boolean!) {
+    delete_todos(where: {is_completed: {_eq: $isCompleted}, is_public: {_eq: false}}) {
+      affected_rows
+    }
+  }
+`;
+
+export const UPDATE_LAST_SEEN = gql`
+  mutation updateLastSeen($now: timestamptz!) {
+    update_users(where: {}, _set:{last_seen: $now}) {
+      affected_rows
+    }
+  }
+`;
+export const SUBSCRIPTION_ONLINE_USERS = gql`
+   subscription getOnlineUsers {
+     online_users(order_by: {user: {name: asc }}) {
+       id
+       user {
+         name
+       }
+     }
+   }
+ `;
