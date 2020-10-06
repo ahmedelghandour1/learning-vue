@@ -1,20 +1,20 @@
-FROM node:carbon
+# FROM node:carbon
 
 # Create app directory
-WORKDIR /app
+WO# RKDIR /app
 
 # Install app dependencies
-RUN npm -g install serve
+RU# N npm -g install serve
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
+CO# PY package*.json ./
 
-RUN npm install
+RU# N npm install
 
 # Bundle app source
-COPY . /app
+CO# PY . /app
 #Build react/vue/angular bundle static files
-RUN npm run build
+RU# N npm run build
 
-EXPOSE 8080
+EX# POSE 8080
 # serve dist folder on port 8080
-CMD ["serve", "-s", "dist", "-p", "8080"]
+CM# D ["serve", "-s", "dist", "-p", "8080"]
