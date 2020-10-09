@@ -5,7 +5,7 @@
         class="card-header d-flex align-items-center justify-content-between"
       >
         <div class="w-75 text-left h3 mb-0">
-          Counter
+          Counter - {{ globalState.appTitle }}
         </div>
         <div class="w-25">
           <select v-model.number="step" class="form-control">
@@ -31,6 +31,7 @@
   </div>
 </template>
 <script lang="ts">
+import { globals } from "@/app";
 import {
   defineComponent,
   ref,
@@ -39,6 +40,8 @@ import {
   toRefs,
   computed,
   onUpdated,
+  reactive,
+  inject,
 } from "vue";
 import counterStore from "./counter";
 export default defineComponent({
@@ -49,10 +52,12 @@ export default defineComponent({
     },
   },
   setup(props, { attrs, slots, emit }) {
+    const globals = inject("globals") as globals;
+    const globalState = globals.state;
+    const dumy = ref(globals.state.otherTitle);
     const { min } = toRefs(props);
-    const { counter, inc, step, doubleCounter, dec, reset } = counterStore(
-      min.value
-    );
+    const { counter, inc, step, doubleCounter, dec, reset } = counterStore(min);
+
     onUpdated(() => {
       console.log({ attrs, slots, emit });
     });
@@ -79,6 +84,7 @@ export default defineComponent({
       dec,
       reset,
       min,
+      globalState,
     };
   },
   watch: {

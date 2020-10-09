@@ -1,6 +1,6 @@
 import { ref, toRefs, computed } from "vue";
 
-export default function counterStore(min: number) {
+export default function counterStore(min: any) {
   // state
   const counter = ref(0);
   const step = ref(1);
@@ -11,15 +11,15 @@ export default function counterStore(min: number) {
   const inc = () => {
     counter.value += step.value;
   };
-  const dec = (min: number) => {
-    if (counter.value - step.value < min) {
-      counter.value = min;
+  const dec = () => {
+    if (counter.value - step.value < min.value) {
+      counter.value = min.value;
       return;
     }
     counter.value -= step.value;
   };
   const reset = () => {
-    counter.value = 0;
+    counter.value = min.value;
   };
   return {
     counter,
